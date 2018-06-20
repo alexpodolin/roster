@@ -1,0 +1,30 @@
+<!-- header -->
+{% extends 'base.html' %}
+{%- block title -%} Календарь дежурства ГУС ОТ {%- endblock -%}
+
+{% block content %}
+    <h2 class="display-4">Расписание дежурств</h2>
+    <table class="table_custom table table-responsive-sm table-hover-cells">	
+        <caption>Расписание дежурств ГУС ОТ на {{ current_month_name }} {{ current_year }} года</caption>		
+			<thead>            
+            <tr>
+                <th scope="col" colspan="7">Понедельник</th>
+                <th scope="col">Вторник</th>
+                <th scope="col">Среда</th>
+                <th scope="col">Четверг</th>
+                <th scope="col">Пятница</th>
+                <th scope="col">Суббота</th>
+                <th scope="col">Воскресенье</th>
+            </tr>
+        </thead>
+        <tbody>  
+            
+            <tr>	
+                {% for date in dates  %}	    				 
+                <td>{{ date }}</td>
+                {% endfor %}				  
+				</tr>
+				
+        </tbody>
+    </table>
+{% endblock %}
