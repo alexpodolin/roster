@@ -9,4 +9,6 @@ from flask import Flask
 from config import Configuration
 
 app = Flask(__name__)
+
+# подключим файл с настройками
 app.config.from_object(Configuration)
