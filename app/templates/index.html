@@ -4,7 +4,7 @@
 
 {% block content %}
     <h2 class="display-4">Расписание дежурств</h2>
-    <table class="table_custom table table-responsive-sm table-hover-cells">	
+    <table class="table__custom table__custom_hover table table-responsive-sm">	
         <caption>Расписание дежурств ГУС ОТ на {{ current_month_name }} {{ current_year }} года</caption>		
 			<thead>            
             <tr>
@@ -21,10 +21,20 @@
             {% for date in dates | slice(5) %}	
             <tr>
                 {%- for i in date %}
-                    <td>{{ i }}</td>
+                    <td {% if i == 0 %} 
+                            class="table__custom_unactive-row"
+                            {% else %}
+                            data-toggle="modal" data-target="#ModalRoster" data-day={{ i }} onclick="qwe(this);"
+                         {% endif %}>
+                        {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
+                                                                      
+                    </td>                    
                 {% endfor %}
             </tr>
 				{% endfor %}	
         </tbody>
+
     </table>
+
+{% include "popup_win.html" %}
 {% endblock %}

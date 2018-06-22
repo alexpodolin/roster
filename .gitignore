@@ -1,3 +1,5 @@
 .spyproject
 
 venv
+
+app/__pycache__

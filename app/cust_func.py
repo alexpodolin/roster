@@ -43,4 +43,3 @@ def make_calendar():
     date_list = list(cal.itermonthdays(current_year(), current_month_num()))
     return date_list
 
-    
