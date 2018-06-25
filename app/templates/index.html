@@ -24,16 +24,15 @@
                     <td {% if i == 0 %} 
                             class="table__custom_unactive-row"
                             {% else %}
-                            data-toggle="modal" data-target="#ModalRoster" data-day={{ i }} onclick="qwe(this);"
+                            data-toggle="modal" data-target="#ModalRoster" data-day={{ i }} onclick="duty_date(this);"
                          {% endif %}>
-                        {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
-                                                                      
-                    </td>                    
-                {% endfor %}
+                        {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}                       
+                        {% set date = i %}                                                                          
+                    </td>                 
+                {% endfor %}                
             </tr>
 				{% endfor %}	
         </tbody>
-
     </table>
 
 {% include "popup_win.html" %}

@@ -1,9 +1,8 @@
-<div class="modal fade" id="ModalRoster" tabindex="-1" role="dialog" aria-labelledby="ModalRosterTitle" aria-hidden="true">
+<div class="modal fade" id="ModalRoster" role="dialog" aria-labelledby="ModalRosterTitle">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalRosterTitle">Выберите дежурного {{ i }}-{{ current_month_num }}-{{ current_year }}</h5>
-                
+                <h5 class="modal-title" id="ModalRosterTitle">Выберите дежурного <span id="ModalRosterTitleDate"></span>.{{ current_month_num }}.{{ current_year }}</h5>             
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>      
@@ -24,3 +23,6 @@
         </div>
     </div>
 </div>
+
+
+
