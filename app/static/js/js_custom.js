@@ -42,24 +42,23 @@ function add_duty(el) {
     var year = document.getElementById('ModalRosterTitleYear'); // год  
     // дата в необходимом формате
     var date = year.outerText + '-' + month.outerText + '-' + day.outerText;    
-    var user_id = el.getAttribute('data_user_id'); // аттрибут с id пользователя
+    var user_id = el.getAttribute('data_user_id'); // аттрибут с id пользователя   
+      
     
-    
-    
-    
-    // тело запроса, т.е. что мы отправляем
-    //var body = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(date);
-    // var body = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(date);
     // создаём объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
+    // тело запроса, т.е. что мы отправляем
+    //var body = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(date);
     var params = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(date);
     // конфигурируем его, т.е POST запрос на url /
-    //xhr.open('POST', '/add_duty_date?' + body, false)
+    //xhr.open('POST', '/add_duty_date', true)
     xhr.open('GET', '/add_duty_date?' + params, true)
-    // добавим заголовоки, говорят без него не работает 
-    //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // отсылаем запрос в [body] - body или тело запроса
+    // добавим заголовоки, говорят без него POST не работает 
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //нужно для GET
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    // отсылаем запрос в [body] - body или тело запроса
+    //xhr.send(body);
     xhr.send();
 
     // код ответа сервера не 200, то это ошибка

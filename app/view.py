@@ -30,15 +30,14 @@ def index() -> 'html':
     
 @app.route('/add_duty_date', methods=['GET'])
 def add_duty_date() -> 'html':
-
-
+    # полученные из ajax данные
     id = request.args.get('user_id')
     date = request.args.get('date')           
     
+    # вставка в БД
     add_duty_day = DutyDates(id_user=id, date=date)    
     db.session.add(add_duty_day)
     db.session.commit()
-           
-    return '''<h1>The id value is: {}</h1>
-              <h1>The date value is: {}</h1>'''.format(id, date)
+
+    return render_template('index.html')
 
