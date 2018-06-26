@@ -5,9 +5,9 @@ Created on Wed Jun 20 07:29:41 2018
 @author: podolin
 """
 
-from app import app
-from flask import render_template
-from models import Users
+from app import app, db
+from flask import render_template, request, redirect
+from models import Users, DutyDates
 from cust_func import current_month_name, current_month_num, current_year, \
                         make_calendar
 
@@ -27,3 +27,18 @@ def index() -> 'html':
                            current_year=current_year(), dates=dates, \
                            current_month_num = current_month_num(), \
                            users=users)
+    
+@app.route('/add_duty_date', methods=['GET'])
+def add_duty_date() -> 'html':
+
+
+    id = request.args.get('user_id')
+    date = request.args.get('date')           
+    
+    add_duty_day = DutyDates(id_user=id, date=date)    
+    db.session.add(add_duty_day)
+    db.session.commit()
+           
+    return '''<h1>The id value is: {}</h1>
+              <h1>The date value is: {}</h1>'''.format(id, date)
+

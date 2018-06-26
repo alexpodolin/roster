@@ -17,7 +17,7 @@ def current_year() -> int:
     return current_year
 
 # номер текущего месяца
-def current_month_num() -> int:
+def current_month_num() -> str:
     '''Получить номер текущего месяца'''
     current_month_num = datetime.now().month
     return current_month_num
@@ -40,6 +40,6 @@ def make_calendar():
        затем получим номера дней данного месяца и сделаем из них список, \
        список отдадим как рез-т работы функции'''
     cal = calendar.Calendar(firstweekday=0)
-    date_list = list(cal.itermonthdays(current_year(), current_month_num()))
+    date_list = list(cal.itermonthdays(current_year(), current_month_num() ))
     return date_list
 

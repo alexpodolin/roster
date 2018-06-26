@@ -2,14 +2,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalRosterTitle">Выберите дежурного <span id="ModalRosterTitleDate"></span>.{{ current_month_num }}.{{ current_year }}</h5>             
+                <h5 class="modal-title" id="ModalRosterTitle">Выберите дежурного <span id="ModalRosterTitleDate"></span>.<span id="ModalRosterTitleMonth">{{ current_month_num  }}</span>.<span id="ModalRosterTitleYear">{{ current_year }}</span></h5>             
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>      
             </div>
             <div class="modal-body">
                 {% for user in users | sort(attribute='surname') %}
-                    <a href="" class="tooltip-test btn__cust_modal" title="{{ user.surname }} {{ user.name }} ">
+                    <a href="" class="tooltip-test btn__cust_modal" title="{{ user.surname }} {{ user.name }}" data_user_id="{{ user.id }}" onclick=add_duty(this);>
                         {{ user.surname }} 
                         {{ user.name }} 
                         {{ user.patronymic }}
