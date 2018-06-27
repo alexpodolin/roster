@@ -1,6 +1,6 @@
 // получим значение в таблицы ячейки
 function duty_date(el) {
-    var date = el.getAttribute('data-day')
+    var date = el.getAttribute('data-day')    
         
     // Подставим это значение в заголовок модального окна
     function display_date(date) {        
@@ -23,7 +23,7 @@ function duty_date(el) {
     format_day();
 
     function format_month() {
-        var month_el = document.getElementById('ModalRosterTitleMonth');        
+        var month_el = document.getElementById('ModalRosterTitleMonth');               
         var month = month_el.outerText;
         
         if(month.toString().length < 2)
