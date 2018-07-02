@@ -18,18 +18,25 @@
             </tr>
         </thead>
         <tbody>  
-            {% for date in dates | slice(5) %}	
+            {% for date in dates | slice(6) %}	
             <tr>
                 {%- for i in date %}
                     <td {% if i == 0 %} 
                             class="table__custom_unactive-row"
                             {% else %}
                             data-toggle="modal" data-target="#ModalRoster" data-day={{ i }} onclick="duty_date(this);"
-                         {% endif %}>
-                        {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}                       
-                        {% set date = i %}                                                                          
+                        {% endif %}>
+                        {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
+                        
+                        <span class="table__custom_fio"> 
+                        {% for key, val in persons.items() %}                                                                     
+                            {% if key == i %}
+                                {{ val }}
+                            {% endif %}
+                        {% endfor %}
+                        </span>                        
                     </td>                 
-                {% endfor %}                
+                {% endfor %}                                               
             </tr>
 				{% endfor %}	
         </tbody>

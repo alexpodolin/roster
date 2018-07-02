@@ -1,6 +1,6 @@
-// получим значение в таблицы ячейки
+// по нажатию получим значение в таблицы ячейки
 function duty_date(el) {
-    var date = el.getAttribute('data-day')    
+    var date = el.getAttribute('data-day')  
         
     // Подставим это значение в заголовок модального окна
     function display_date(date) {        

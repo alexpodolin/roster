@@ -27,7 +27,11 @@
     display: flex;
 }
 
-
+.table__custom_fio {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+}
 
 .btn__cust_modal {
     width: 100%;  
