@@ -28,13 +28,15 @@
                         {% endif %}>
                         {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
                         
-                        <span class="table__custom_fio"> 
+                        
                         {% for key, val in persons.items() %}                                                                     
                             {% if key == i %}
-                                {{ val }}
+                                <span class="table__custom_fio">
+                                    {{ val }}
+                                    {% set fio = True %}
+                                </span>  
                             {% endif %}
-                        {% endfor %}
-                        </span>                        
+                        {% endfor %}                                              
                     </td>                 
                 {% endfor %}                                               
             </tr>

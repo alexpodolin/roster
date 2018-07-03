@@ -16,18 +16,19 @@ from sqlalchemy import func
 # получим список пользователей из БД с аттрибутами
 users = Users.query.all()     
 
-# список дат и id дежурных с фильтром по году и месяцу
+# список дат, id дежурных, цвета с фильтром по году и месяцу
 schedule = db.session.query(Users.id, Users.surname, Users.name, \
-                            Users.patronymic, DutyDates.date). \
+                            Users.patronymic, Users.user_color, DutyDates.date). \
                             filter(Users.id==DutyDates.id_user). \
                             filter(func.YEAR(DutyDates.date) == current_year()). \
                             filter(func.MONTH(DutyDates.date) == current_month_num()).all()
        
 # словарь содержащий дату и ФИО дежурных                                
 dict_format = dict()    # пустой словарь, тут будет дата: фио
+dict_color = dict()
 for i in schedule:
     # обработанный результат запроса schedule
-    duty_list = dict([(str(i[4]), str(i[1]).capitalize() + ' ' \
+    duty_list = dict([(str(i[5]), str(i[1]).capitalize() + ' ' \
                        + str(i[2][0]).upper() + '.' \
                        + str(i[3][0]).upper() + '.')])
     # отбросим первый 0 если он есть, 
@@ -39,9 +40,16 @@ for i in schedule:
         duty_list = dict([(day, person)])
         
         # по всем ключам получим значения и сформируем новый словарь
-        for k in duty_list.keys():		
-		       dict_format[k] = duty_list[k]             
+        # key = day, value = person
+        for day in duty_list.keys():		
+		       dict_format[day] = duty_list[day]
 
+    # какому id пользователя, какой цвет соответствует
+    # key = user_id, value = user_color
+    u_color_list = dict([(str(i[0]), '#' + str(i[4]))])
+    for id in u_color_list.keys():
+        dict_color[id] = u_color_list[id]
+        
 # отрисовка гланой страницы
 @app.route('/', methods=['GET'])
 def index() -> 'html':
@@ -54,9 +62,9 @@ def index() -> 'html':
     return render_template('index.html', \
                            current_month_name=current_month_name(), \
                            current_year=current_year(), dates=dates, \
-                           weeks_count=weeks_count(), 
+                           weeks_count=weeks_count(), \
                            current_month_num=current_month_num(), \
-                           users=users, persons=dict_format)
+                           users=users, persons=dict_format, u_id=u_color_list)
 # всплывающее окно
 @app.route('/add_duty_date', methods=['GET'])
 def add_duty_date() -> 'html':
