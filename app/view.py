@@ -9,17 +9,19 @@ from app import app, db
 from flask import render_template, request
 from models import Users, DutyDates
 from cust_func import current_month_name, current_month_num, current_year, \
-                        make_calendar
+                        make_calendar, weeks_count
 from re import sub
+from sqlalchemy import func
 
 # получим список пользователей из БД с аттрибутами
 users = Users.query.all()     
 
-# список дат и id дежурных
+# список дат и id дежурных с фильтром по году и месяцу
 schedule = db.session.query(Users.id, Users.surname, Users.name, \
                             Users.patronymic, DutyDates.date). \
-                            filter(Users.id==DutyDates.id_user).all()
-
+                            filter(Users.id==DutyDates.id_user). \
+                            filter(func.YEAR(DutyDates.date) == current_year()). \
+                            filter(func.MONTH(DutyDates.date) == current_month_num()).all()
        
 # словарь содержащий дату и ФИО дежурных                                
 dict_format = dict()    # пустой словарь, тут будет дата: фио
@@ -39,7 +41,8 @@ for i in schedule:
         # по всем ключам получим значения и сформируем новый словарь
         for k in duty_list.keys():		
 		       dict_format[k] = duty_list[k]             
-        
+
+# отрисовка гланой страницы
 @app.route('/', methods=['GET'])
 def index() -> 'html':
     '''Вызов страницы index.html'''
@@ -51,9 +54,10 @@ def index() -> 'html':
     return render_template('index.html', \
                            current_month_name=current_month_name(), \
                            current_year=current_year(), dates=dates, \
+                           weeks_count=weeks_count(), 
                            current_month_num=current_month_num(), \
                            users=users, persons=dict_format)
-    
+# всплывающее окно
 @app.route('/add_duty_date', methods=['GET'])
 def add_duty_date() -> 'html':
     # полученные из ajax данные
@@ -75,14 +79,5 @@ def add_duty_date() -> 'html':
         add_duty_day = DutyDates(id_user=id, date=date)
         db.session.add(add_duty_day)
         db.session.commit()
-        
-    # ищем пользователя с заданным id и делаем ФИО, затем отобразим в таблице
-    #def get_fio(id):
-    #    user = Users.query.get(id)
-    #    surname = user.surname.capitalize()
-    #    name = user.name[0].upper() + '.'
-    #    patronymic = user.patronymic[0].upper() + '.'
-    #    initial = surname + ' ' + name + patronymic
-    #    return initial
-        
+                
     return render_template('index.html')

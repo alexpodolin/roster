@@ -42,3 +42,9 @@ def make_calendar():
     cal = calendar.Calendar(firstweekday=0)
     date_list = list(cal.itermonthdays(current_year(), current_month_num() ))
     return date_list
+
+# число недель текущего месяца
+def weeks_count(year=current_year(), cur_month=current_month_num()):
+    '''Число недель в текущем месяце'''
+    weeks_count = len(calendar.monthcalendar(year, cur_month))
+    return weeks_count
