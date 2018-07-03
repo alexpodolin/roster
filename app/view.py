@@ -10,7 +10,7 @@ from flask import render_template, request
 from models import Users, DutyDates
 from cust_func import current_month_name, current_month_num, current_year, \
                         make_calendar, weeks_count
-from re import sub
+import re
 from sqlalchemy import func
 
 # получим список пользователей из БД с аттрибутами
@@ -34,7 +34,7 @@ for i in schedule:
     # отбросим первый 0 если он есть, 
     # т.к. в нашем календаре числа без нулей вначале
     for day, person in duty_list.items():
-        day = sub('^[0-9]{4}-[0-9]{2}-', '', day)
+        day = re.sub('^[0-9]{4}-[0-9]{2}-', '', day)
         day = int(day)
         # в переменной duty_list словари дата:фио в нужном формате
         duty_list = dict([(day, person)])
@@ -49,7 +49,7 @@ for i in schedule:
     u_color_list = dict([(str(i[0]), '#' + str(i[4]))])
     for id in u_color_list.keys():
         dict_color[id] = u_color_list[id]
-        
+       
 # отрисовка гланой страницы
 @app.route('/', methods=['GET'])
 def index() -> 'html':
@@ -64,7 +64,7 @@ def index() -> 'html':
                            current_year=current_year(), dates=dates, \
                            weeks_count=weeks_count(), \
                            current_month_num=current_month_num(), \
-                           users=users, persons=dict_format, u_id=u_color_list)
+                           users=users, persons=dict_format)
 # всплывающее окно
 @app.route('/add_duty_date', methods=['GET'])
 def add_duty_date() -> 'html':
