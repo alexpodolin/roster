@@ -3,6 +3,14 @@
     max-width: 1280px;
     margin: 3% auto 0 auto;
 }
+.month_name {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+    padding: .75rem;
+    font-weight: bold;
+    display: table-cell;
+}
 .table__custom {
     table-layout: fixed; 
 }
@@ -15,7 +23,6 @@
     cursor: default !important; 
     background-color: #FFFFFF !important; 
 } 
-
 .modal.fade .modal-dialog {
     transition: -webkit-transform .1s ease-out;
     transition: transform .1s ease-out;
@@ -26,13 +33,15 @@
 .duty_date {
     display: flex;
 }
-
 .table__custom_fio {
     display: flex;
     justify-content: center;
     font-size: 0.8rem;
 }
-
+.table__custom_fio:hover {
+    opacity: 0.5;
+    color: #ffffff;
+}
 .btn__cust_modal {
     width: 100%;  
     display: inline-flex;
@@ -64,4 +73,3 @@
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-    

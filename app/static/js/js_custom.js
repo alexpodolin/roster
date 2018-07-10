@@ -1,55 +1,33 @@
-// по нажатию получим значение в таблицы ячейки
-function duty_date(el) {
-    var date = el.getAttribute('data-day')  
-        
-    // Подставим это значение в заголовок модального окна
-    function display_date(date) {        
-        document.getElementById('ModalRosterTitleDate').innerHTML = date;
-    }
+function get_date(el) {
+    // день
+    var day = el.getAttribute('data-day');
+    if(day.toString().length < 2)
+               day= '0' + day;
     
-    display_date(date); 
+    // месяц
+    var month = el.getAttribute('data-month')
+    if(month.toString().length < 2)
+               month= '0' + month;
+    // год
+    var year = el.getAttribute('data-year')
     
-    // во всплывающем окне добавим 0 перед номером дня и месяца
-        function format_day() {
-        var day_el = document.getElementById('ModalRosterTitleDate');        
-        var day = day_el.outerText;
-        
-        if(day.toString().length < 2)
-               day= '0' + day;   
-                                       
-        day_el.innerHTML = day;
-    }
-    
-    format_day();
-
-    function format_month() {
-        var month_el = document.getElementById('ModalRosterTitleMonth');               
-        var month = month_el.outerText;
-        
-        if(month.toString().length < 2)
-               month= '0' + month;   
-                        
-        month_el.innerHTML = month;
-    }
-    
-    format_month();
+    //полная дата в нужном виде
+    var full_date = day + '.' + month + '.' + year
+    var date = document.getElementById('ModalDate');
+    date.innerHTML = full_date
 }
 
-// добавим запись о дежурстве в БД
-function add_duty(el) {    
-    var day = document.getElementById('ModalRosterTitleDate'); // день    
-    var month = document.getElementById('ModalRosterTitleMonth'); // месяц    
-    var year = document.getElementById('ModalRosterTitleYear'); // год  
-    // дата в необходимом формате
-    var date = year.outerText + '-' + month.outerText + '-' + day.outerText;    
-    var user_id = el.getAttribute('data_user_id'); // аттрибут с id пользователя   
-      
+// ф-ия добавления дежурного
+function add_duty(el) {
+    var full_date = document.getElementById('ModalDate').textContent;
+        full_date = full_date.split('.').reverse().join('-');
+    var user_id = el.getAttribute('data_user_id');
     
     // создаём объект XMLHttpRequest
     var xhr = new XMLHttpRequest();
     // тело запроса, т.е. что мы отправляем
     //var body = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(date);
-    var params = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(date);
+    var params = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(full_date);
     // конфигурируем его, т.е POST запрос на url /
     //xhr.open('POST', '/add_duty_date', true)
     xhr.open('GET', '/add_duty_date?' + params, true)
@@ -69,5 +47,4 @@ function add_duty(el) {
         // вывести результат
         console.log( xhr.responseText ); // responseText -- текст ответа.
     }
-    
 }

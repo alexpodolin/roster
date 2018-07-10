@@ -1,49 +1,50 @@
 <!-- header -->
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {%- block title -%} Календарь дежурства ГУС ОТ {%- endblock -%}
 
 {% block content %}
-    <h2 class="display-4">Расписание дежурств</h2>
-    <table class="table__custom table__custom_hover table table-responsive-sm">	
-        <caption>Расписание дежурств ГУС ОТ на {{ current_month_name }} {{ current_year }} года</caption>		
-			<thead>            
-            <tr>
-                <th scope="col">Понедельник</th>
-                <th scope="col">Вторник</th>
-                <th scope="col">Среда</th>
-                <th scope="col">Четверг</th>
-                <th scope="col">Пятница</th>
-                <th scope="col">Суббота</th>
-                <th scope="col">Воскресенье</th>
-            </tr>
-        </thead>
-        <tbody>  
-            {% for date in dates | slice(weeks_count) %}	
-            <tr>
-                {%- for i in date %}
-                    <td {% if i == 0 %} 
-                            class="table__custom_unactive-row"
-                            {% else %}
-                            data-toggle="modal" data-target="#ModalRoster" data-day={{ i }} onclick="duty_date(this);"
-                        {% endif %}>
-                        {{ i | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
-                        
-                        
-                        {% for key, val in persons.items() %}                                                                     
-                            {% if key == i %}
-                                <span class="table__custom_fio">
-                                    {{ val }}
-                                    {% set fio = True %}
-                                </span>  
-                            {% endif %}
-                        {% endfor %}                                              
-                    </td>                 
-                {% endfor %}                                               
-            </tr>
-				{% endfor %}	
-        </tbody>
-    </table>
 
+<h2 class="display-4">Расписание дежурств</h2>
+
+{%- for month in months_data -%}
+<span class="month_name">{{ month[1] }}</span>
+<table class="table__custom table__custom_hover table table-responsive-sm">
+<caption >Расписание дежурств ГУС ОТ на {{ month[1] }} {{ current_year }} года</caption>
+    <thead>        
+        <tr>
+            <th scope="col">Понедельник</th>
+            <th scope="col">Вторник</th>
+            <th scope="col">Среда</th>
+            <th scope="col">Четверг</th>
+            <th scope="col">Пятница</th>
+            <th scope="col">Суббота</th>
+            <th scope="col">Воскресенье</th>
+        </tr> 
+    </thead>
+    <tbody>
+        {%- for tr in month[3] | slice(month[2]) -%} 
+        <tr>
+            {%- for td in tr -%}               
+                <td {% if td == 0 %} class="table__custom_unactive-row" 
+                    {% else %}   
+                     data-toggle="modal" data-target="#ModalRoster" 
+                     data-day={{ td }} data-month={{ month[0] }} 
+                     data-year={{ current_year }} onclick="get_date(this);"
+                    {% endif %} >          
+                    {{ td | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
+                    
+                    {%- for list in schedule -%}
+                        {% if list[4] == month[0] and list[5] == td  %}                    
+                            <span class="table__custom_fio" style=background-color:{{ list[2] }}>{{ list[1] }}</span>                            
+                        {% endif %}                    
+                    {%- endfor -%}  
+                </td>
+            {%- endfor -%}            
+        </tr>
+        {%- endfor -%}
+    </tbody>
+</table>
+{%- endfor -%}
 
 {% include "popup_win.html" %}
 {% endblock %}
