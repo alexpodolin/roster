@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 {% for user in users | sort(attribute='surname') %}
-                    <a href="" class="tooltip-test btn__cust_modal" title="{{ user.surname }} {{ user.name }}" data_user_id="{{ user.id }}" onclick=add_duty(this);>
+                    <a href=" " class="tooltip-test btn__cust_modal" title="{{ user.surname }} {{ user.name }}" data_user_id="{{ user.id }}" onclick="add_duty(this); return false;">
                         {{ user.surname }} 
                         {{ user.name }} 
                         {{ user.patronymic }}

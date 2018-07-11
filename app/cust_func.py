@@ -90,5 +90,4 @@ def get_schedule() -> None:
                        '#' + el[4], el[5].year, el[5].month, el[5].day]
             el_data = duty_list.append(el) 
             
-    return duty_list
-           
+    return duty_list             

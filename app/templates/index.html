@@ -5,8 +5,9 @@
 {% block content %}
 
 <h2 class="display-4">Расписание дежурств</h2>
-
+<div id=wrapper>
 {%- for month in months_data -%}
+
 <span class="month_name">{{ month[1] }}</span>
 <table class="table__custom table__custom_hover table table-responsive-sm">
 <caption >Расписание дежурств ГУС ОТ на {{ month[1] }} {{ current_year }} года</caption>
@@ -45,6 +46,7 @@
     </tbody>
 </table>
 {%- endfor -%}
+</div>
 
 {% include "popup_win.html" %}
 {% endblock %}

@@ -18,7 +18,7 @@ def index() -> 'html':
     current_year = get_current_year()
     months_data = create_month_data()
     users = get_duty_users()    
-    schedule = get_schedule()
+    schedule = get_schedule()  
     
     return render_template('index.html', current_year=current_year, months_data=months_data, \
                            users=users, schedule=schedule)
@@ -43,6 +43,5 @@ def add_duty_date() -> 'html':
     else:
         add_duty_day = DutyDates(id_user=id, date=date)
         db.session.add(add_duty_day)
-        db.session.commit()
-                
-    return redirect('index.html')
+        db.session.commit()                
+    return redirect('/')

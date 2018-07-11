@@ -37,10 +37,11 @@
     display: flex;
     justify-content: center;
     font-size: 0.8rem;
+    color: #ffffff;
 }
 .table__custom_fio:hover {
     opacity: 0.5;
-    color: #ffffff;
+    color: #000000;
 }
 .btn__cust_modal {
     width: 100%;  
