@@ -1,16 +1,13 @@
 <!-- header -->
-{% extends "base.html" %}
+{%- extends "base.html" -%}
 {%- block title -%} Календарь дежурства ГУС ОТ {%- endblock -%}
 
 {% block content %}
-
 <h2 class="display-4">Расписание дежурств</h2>
-<div id=wrapper>
-{%- for month in months_data -%}
 
-<span class="month_name">{{ month[1] }}</span>
-<table class="table__custom table__custom_hover table table-responsive-sm">
-<caption >Расписание дежурств ГУС ОТ на {{ month[1] }} {{ current_year }} года</caption>
+{% for month in months_data %}
+<table class="table__custom table__custom_hover table table-responsive-sm  visible-print-block">
+<caption>Расписание дежурств ГУС ОТ на {{ month[1] }} {{ current_year }} года <i class="fas fa-print" onclick="print_table(this);"></i> </caption>
     <thead>        
         <tr>
             <th scope="col">Понедельник</th>
@@ -35,9 +32,9 @@
                     {{ td | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
                     
                     {%- for list in schedule -%}
-                        {% if list[4] == month[0] and list[5] == td  %}                    
+                        {%- if list[4] == month[0] and list[5] == td -%}                    
                             <span class="table__custom_fio" style=background-color:{{ list[2] }}>{{ list[1] }}</span>                            
-                        {% endif %}                    
+                        {%- endif -%}                    
                     {%- endfor -%}  
                 </td>
             {%- endfor -%}            
@@ -45,8 +42,7 @@
         {%- endfor -%}
     </tbody>
 </table>
-{%- endfor -%}
-</div>
+{% endfor %}
 
 {% include "popup_win.html" %}
 {% endblock %}

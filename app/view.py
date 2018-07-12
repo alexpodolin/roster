@@ -11,7 +11,6 @@ from models import DutyDates
 from cust_func import get_current_year, create_month_data, get_duty_users, \
                 get_schedule
 
-
 @app.route('/', methods=['GET'])
 def index() -> 'html':
     '''Корневая страница'''    
