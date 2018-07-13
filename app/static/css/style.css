@@ -8,6 +8,9 @@
     flex-direction: row;
     align-items: center;
 }
+adminka {
+    margin-left: auto;
+}
 .content__header > a {
     margin: 0.5rem 1rem 0 1rem;
 }
