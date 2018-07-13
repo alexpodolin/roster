@@ -22,12 +22,18 @@ function add_duty(el) {
         full_date = full_date.split('.').reverse().join('-');
     var user_id = el.getAttribute('data_user_id');
     
+    // текущий url
+    var cur_url = window.location.href;    
+    
+    // блок который мы перерисуем при изминении дежурного
     var wrap = document.getElementById('wrap')
-    console.log(wrap)
+
     // создаём объект XMLHttpRequest
     var request = new XMLHttpRequest();
     // тело запроса, т.е. что мы отправляем
-    var params = 'user_id=' + encodeURIComponent(user_id) + '&date=' + encodeURIComponent(full_date);
+    var params = 'user_id=' + encodeURIComponent(user_id) + 
+                    '&date=' + encodeURIComponent(full_date) + 
+                    '&url=' + encodeURIComponent(cur_url);
     // конфигурируем его, т.е POST запрос на url /
     //request.open('POST', '/add_duty_date', true)
     request.open('GET', '/add_duty_date?' + params, true)
@@ -76,16 +82,6 @@ function print_table(el) {
 
     win.document.write(el_to_print.outerHTML);
     win.document.write('</body></html>');
-
-    //win.document.write(el_to_print.outerHTML);
-    //win.print();
-    //win.close();
     
     return true;
 }
-
-
-    
-    
-    <!-- Иконки и шрифты -->
-    

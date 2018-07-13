@@ -3,7 +3,12 @@
 {%- block title -%} Календарь дежурства ГУС ОТ {%- endblock -%}
 
 {% block content %}
-<h2 class="display-4">Расписание дежурств</h2>
+<div class="content__header">
+    <h2 class="display-4">Расписание дежурств</h2>
+    <a href="/prev_year" title="предыдущий год"><i class="fas fa-chevron-left"></i></a>
+    <a href="/" title="текущий год">{{ cur_year }}</a>
+    <a href="/next_year" title="следующий год"><i class="fas fa-chevron-right"></i></a>
+</div>
 
 {% for month in months_data %}
 <table class="table__custom table__custom_hover table table-responsive-sm  visible-print-block">

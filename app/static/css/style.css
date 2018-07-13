@@ -3,6 +3,14 @@
     max-width: 1280px;
     margin: 3% auto 0 auto;
 }
+.content__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.content__header > a {
+    margin: 0.5rem 1rem 0 1rem;
+}
 .month_name {
     font-size: 1rem;
     line-height: 1.5;

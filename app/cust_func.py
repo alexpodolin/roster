@@ -9,15 +9,26 @@ import calendar
 from models import Users, DutyDates
 from app import db
 from sqlalchemy import func
-import re
 
 # создадим объект календарь, первый день недели понедельник
 cal = calendar.Calendar(firstweekday=0)
-
+    
 def get_current_year() -> int:
     '''Возвращает текущий год в формате ХХХХ'''
     cur_year = datetime.now().year
     return cur_year
+
+def get_next_year() -> int:
+    '''Возвращает следующий год в формате ХХХХ'''
+    current_year = get_current_year()
+    next_year = current_year + 1
+    return next_year
+
+def get_prev_year() -> int:
+    '''Возвращает предыдущий год в формате ХХХХ'''
+    current_year = get_current_year()
+    prev_year = current_year - 1
+    return prev_year
 
 def get_current_month_num() -> str:
     '''Получить номер текущего месяца'''
@@ -53,7 +64,7 @@ months = {1:'январь', 2:'февраль', 3:'март', 4:'апрель', 
           6:'июнь', 7:'июль', 8:'август', 9:'сентябрь', 10:'октябрь', \
           11:'ноябрь', 12:'декабрь'} 
     
-def create_month_data() -> None:
+def create_month_data(year) -> None:
     '''Возвращает список списков состоящий из номера, названия, 
     количества дней для 12 месяцев'''
     # результирующий список куда попадут данные
@@ -63,8 +74,8 @@ def create_month_data() -> None:
         data = list()
         month_number = data.append(key)
         month_name = data.append(value)
-        weeks_count = data.append(get_week_month_count(get_current_year(), key))
-        month_day_list = data.append(month_days_list(get_current_year(), key))
+        weeks_count = data.append(get_week_month_count(year, key))
+        month_day_list = data.append(month_days_list(year, key))
         month_data = months_data.append(data)
     return months_data
 
@@ -73,7 +84,7 @@ def get_duty_users() -> None:
     users = Users.query.all()
     return users
 
-def get_schedule() -> None:
+def get_schedule(year) -> None:
     '''Вернет список списков. 
     Состоящий из id дежурных, ФИО, цвета с фильтром по году и месяцу'''
     duty_list = list()
@@ -82,12 +93,11 @@ def get_schedule() -> None:
                                     Users.patronymic, Users.user_color, \
                                     DutyDates.date).\
                                     filter(Users.id==DutyDates.id_user).\
-                                    filter(func.YEAR(DutyDates.date) == get_current_year()). \
+                                    filter(func.YEAR(DutyDates.date) == year). \
                                     filter(func.MONTH(DutyDates.date) == key).all()        
         for el in schedule:
             el = [el[0], \
                        el[1].capitalize() + ' '+ el[2][0].upper() + '.' + el[3][0].upper() + '.', \
                        '#' + el[4], el[5].year, el[5].month, el[5].day]
-            el_data = duty_list.append(el) 
-            
-    return duty_list             
+            el_data = duty_list.append(el)             
+    return duty_list      
