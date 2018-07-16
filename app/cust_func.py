@@ -12,6 +12,10 @@ from sqlalchemy import func
 
 # создадим объект календарь, первый день недели понедельник
 cal = calendar.Calendar(firstweekday=0)
+
+def get_current_day() -> int:
+    current_day = datetime.today().day
+    return current_day
     
 def get_current_year() -> int:
     '''Возвращает текущий год в формате ХХХХ'''

@@ -7,8 +7,9 @@ Created on Wed Jun 20 07:29:41 2018
 from app import app, db
 from flask import render_template, request, redirect
 from models import DutyDates
-from cust_func import get_current_year, get_next_year, get_prev_year, \
-                     create_month_data, get_duty_users, get_schedule   
+from cust_func import get_current_day, get_current_month_num, \
+                    get_current_year, get_next_year, get_prev_year, \
+                    create_month_data, get_duty_users, get_schedule   
 
 @app.route('/', methods=['GET'])
 def index() -> 'html':
@@ -17,8 +18,11 @@ def index() -> 'html':
     months_data = create_month_data(year=current_year) # данные по месяцу
     users = get_duty_users() # список дежурных
     schedule = get_schedule(year=current_year) # расписание дежурных
-    cur_year = get_current_year() # текущий год для отображения
-    return render_template('index.html', cur_year = cur_year, \
+    #cur_year = get_current_year() # текущий год для отображения
+    current_month = get_current_month_num() # текущий месяц
+    current_day = get_current_day() # текущий день
+    return render_template('index.html', current_day=current_day, \
+                           current_month = current_month, \
                            current_year=current_year, \
                            months_data=months_data, \
                            users=users, schedule=schedule)   

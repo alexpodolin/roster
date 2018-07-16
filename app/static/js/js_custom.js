@@ -65,7 +65,7 @@ function add_duty(el) {
 function print_table(el) {
     var el_to_print = el.closest('.table__custom');   
     var month_name = el.closest('caption');
-
+    
     win = window.open('');
     win.document.write('<head>');    
     win.document.write('<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">');
@@ -79,7 +79,6 @@ function print_table(el) {
     win.document.write('<body>');
     win.document.write('<div class="container-fluid wrapper" id="wrap">');
     win.document.write('<div class="container-fluid">  ');
-
     win.document.write(el_to_print.outerHTML);
     win.document.write('</body></html>');
     

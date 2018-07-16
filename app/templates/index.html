@@ -6,14 +6,17 @@
 <div class="content__header">
     <h2 class="display-4">Расписание дежурств</h2>
     <a href="/prev_year" title="предыдущий год"><i class="fas fa-chevron-left"></i></a>
-    <a href="/" title="текущий год">{{ cur_year }}</a>
+    <a href="/" title="текущий год">{{ current_year }}</a>
     <a href="/next_year" title="следующий год"><i class="fas fa-chevron-right"></i></a>
     <!-- <a href="/admin" class="adminka">админка</a> -->
 </div>
 
 {% for month in months_data %}
+<div class="month__name">
+    <h5>{{ month[1] | title }} {{ current_year }} года</h5>     
+</div>
 <table class="table__custom table__custom_hover table table-responsive-sm  visible-print-block">
-<caption>Расписание дежурств ГУС ОТ на {{ month[1] }} {{ current_year }} года <i class="fas fa-print" onclick="print_table(this);"></i> </caption>
+<caption>печать календаря <i title="print" class="fas fa-print" onclick="print_table(this);"></i></caption> 
     <thead>        
         <tr>
             <th scope="col">Понедельник</th>
@@ -34,14 +37,23 @@
                      data-toggle="modal" data-target="#ModalRoster" 
                      data-day={{ td }} data-month={{ month[0] }} 
                      data-year={{ current_year }} onclick="get_date(this);"
-                    {% endif %} >          
-                    {{ td | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
+                    {% endif %} 
                     
+                    {% if month[0] == current_month and td == current_day %}
+                    class="current__day"
+                    {% endif %}
+                    
+                    >          
+                    {{ td | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
+                                      
                     {%- for list in schedule -%}
                         {%- if list[4] == month[0] and list[5] == td -%}                    
                             <span class="table__custom_fio" style=background-color:{{ list[2] }}>{{ list[1] }}</span>                            
                         {%- endif -%}                    
                     {%- endfor -%}  
+                    
+                    
+                    
                 </td>
             {%- endfor -%}            
         </tr>

@@ -14,13 +14,14 @@ adminka {
 .content__header > a {
     margin: 0.5rem 1rem 0 1rem;
 }
-.month_name {
+.month__name {
     font-size: 1rem;
     line-height: 1.5;
     color: #212529;
     padding: .75rem;
     font-weight: bold;
-    display: table-cell;
+    display: table-cell;  
+    padding-bottom: 0;  
 }
 caption > i:hover  {
     cursor: pointer;
@@ -46,6 +47,10 @@ caption > i:hover  {
     transition: transform .1s ease-out,-webkit-transform .1s ease-out;
     -webkit-transform: translate(0,-25%);
     transform: translate(0,-25%);
+}
+.current__day {
+    color: red;
+    font-weight: bold;
 }
 .duty_date {
     display: flex;
