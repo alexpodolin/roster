@@ -4,8 +4,8 @@ Created on Thu Jun 21 09:03:49 2018
 
 @author: podolin
 """
-
 from app import db
+from flask_security import UserMixin, RoleMixin
 
 class Users(db.Model):
     __tablename__ = 'users'
@@ -39,5 +39,3 @@ class DutyDates(db.Model):
     def __repr__(self):
         return '<DutyDates id: {}, id_user: {}, date: {}>' \
                 .format(self.id, self.id_user, self.date)
-    
-    

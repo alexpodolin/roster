@@ -4,8 +4,6 @@ Created on Wed Jun 20 07:29:41 2018
 
 @author: podolin
 """
-
-
 from app import app, db
 from flask import render_template, request, redirect
 from models import DutyDates

@@ -1,0 +1,15 @@
+[Unit]
+Description=uWSGI instance to serve roster-uwsgi project
+After=network.target
+
+[Service]
+User=roster
+Group=nobody
+#User=root
+#Group=root
+WorkingDirectory=/data/www/roster/app
+Environment="PATH=/data/www/roster/venv/bin"
+ExecStart=/data/www/roster/venv/bin/uwsgi --ini uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target
