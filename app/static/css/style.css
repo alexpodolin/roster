@@ -22,6 +22,8 @@ adminka {
     font-weight: bold;
     display: table-cell;  
     padding-bottom: 0;  
+    display: flex;
+    justify-content: center;
 }
 caption > i:hover  {
     cursor: pointer;
@@ -29,7 +31,7 @@ caption > i:hover  {
 }
 .table__custom {
     table-layout: fixed; 
-    margin-bottom: 3rem;
+    margin-bottom: 0.5rem;
     margin-top: 1rem;
 }
 .table__custom_hover > tbody > tr > td:hover {
