@@ -14,6 +14,16 @@ adminka {
 .content__header > a {
     margin: 0.5rem 1rem 0 1rem;
 }
+#show__tables {
+    display: inline-flex;
+    cursor: pointer;
+    color: #007bff;
+    border-bottom: 1px dashed #007bff;
+}
+#show__tables:hover {
+    color: #0056b3;
+    border-bottom: 1px dashed #0056b3;
+}
 .month__name {
     font-size: 1rem;
     line-height: 1.5;
@@ -25,9 +35,12 @@ adminka {
     display: flex;
     justify-content: center;
 }
-caption > i:hover  {
-    cursor: pointer;
-    opacity: 0.5;
+.table__custom-hidden {
+    display: none;
+}
+.table__custom-not-hidden {
+    display: flex;
+    flex-direction: column;
 }
 .table__custom {
     table-layout: fixed; 

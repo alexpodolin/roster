@@ -84,3 +84,42 @@ function print_table(el) {
     
     return true;
 }
+
+// Показать скрытые таблицы
+function show_all() {
+    var link = document.getElementById('show__tables'),
+        tables = document.getElementsByClassName('table__custom-hidden'),
+        textCont = link.textContent;
+        
+    if (textCont == 'Показать все, что скрыто') {
+        disp = true;
+        link.textContent = 'Скрыть все, что показано';
+    } else {
+        disp = false;
+        link.textContent = 'Показать все, что скрыто';
+    }
+    
+    for(i = 0; i < tables.length; i++) {   
+        if (disp) {
+            //add_class_by_el(tables[i], 'table__custom-not-hidden');
+            tables[i].className = tables[i].className.replace('table__custom-not-hidden', '').trim();
+            tables[i].className += ' ' + 'table__custom-not-hidden';
+        } else {
+            //remove_class_by_el(tables[i], 'table__custom-not-hidden');
+            tables[i].className = tables[i].className.replace('table__custom-not-hidden', '').trim();
+        }
+    }
+}
+
+//function remove_class_by_el(el, class_Name) {
+//    el.className = el.className.replace(class_Name, '').trim();
+//}
+
+//function add_class_by_el(el, class_Name) {
+//    el.className = el.className.replace(class_Name, '').trim();
+//    el.className += ' ' + class_Name;
+//}
+
+//tables[i].classList.remove('table__custom-hidden');
+//tables[i].classList.add('table__custom-not-hidden');
+//tables[i].className = tables[i].className.replace('table__custom-hidden', 'table__custom-not-hidden');

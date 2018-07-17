@@ -10,56 +10,54 @@
     <a href="/next_year" title="следующий год"><i class="fas fa-chevron-right"></i></a>
     <!-- <a href="/admin" class="adminka">админка</a> -->
 </div>
+<p id="show__tables" title="Показать все, что скрыто" onclick="show_all();">Показать все, что скрыто</p>
 
-{% for month in months_data %}
-<div class="month__name">
-    <h5>{{ month[1] | title }} {{ current_year }} года</h5>     
-</div>
-<table class="table__custom table__custom_hover table table-responsive-sm  visible-print-block">
-<caption>печать календаря <i title="print" class="fas fa-print" onclick="print_table(this);"></i></caption> 
-    <thead>        
-        <tr>
-            <th scope="col">Понедельник</th>
-            <th scope="col">Вторник</th>
-            <th scope="col">Среда</th>
-            <th scope="col">Четверг</th>
-            <th scope="col">Пятница</th>
-            <th scope="col">Суббота</th>
-            <th scope="col">Воскресенье</th>
-        </tr> 
-    </thead>
-    <tbody>
-        {%- for tr in month[3] | slice(month[2]) -%} 
-        <tr>
-            {%- for td in tr -%}               
-                <td {% if td == 0 %} class="table__custom_unactive-row" 
-                    {% else %}   
-                     data-toggle="modal" data-target="#ModalRoster" 
-                     data-day={{ td }} data-month={{ month[0] }} 
-                     data-year={{ current_year }} onclick="get_date(this);"
-                    {% endif %} 
-                    
-                    {% if month[0] == current_month and td == current_day %}
-                    class="current__day"
-                    {% endif %}
-                    
-                    >          
-                    {{ td | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
-                                      
-                    {%- for list in schedule -%}
-                        {%- if list[4] == month[0] and list[5] == td -%}                    
-                            <span class="table__custom_fio" style=background-color:{{ list[2] }}>{{ list[1] }}</span>                            
-                        {%- endif -%}                    
-                    {%- endfor -%}  
-                    
-                    
-                    
-                </td>
-            {%- endfor -%}            
-        </tr>
-        {%- endfor -%}
-    </tbody>
-</table>
+{% for month in months_data %} 
+<div class="{% if loop.index < current_month %} table__custom-hidden {% endif %}">
+    <div class="month__name">
+        <h5>{{ month[1] | title }} {{ current_year }} года</h5>     
+    </div>
+    <table class="table__custom table__custom_hover table table-responsive-sm  visible-print-block">
+    <caption><a href="" title="напечатать календарь" onclick="print_table(this);">печать календаря <i class="fas fa-print" onclick="print_table(this);"></i></a></caption> 
+        <thead>        
+            <tr>
+                <th scope="col">Понедельник</th>
+                <th scope="col">Вторник</th>
+                <th scope="col">Среда</th>
+                <th scope="col">Четверг</th>
+                <th scope="col">Пятница</th>
+                <th scope="col">Суббота</th>
+                <th scope="col">Воскресенье</th>
+            </tr> 
+        </thead>
+        <tbody>
+            {%- for tr in month[3] | slice(month[2]) -%} 
+            <tr>
+                {%- for td in tr -%}               
+                    <td {% if td == 0 %} class="table__custom_unactive-row" 
+                        {% else %}   
+                         data-toggle="modal" data-target="#ModalRoster" 
+                         data-day={{ td }} data-month={{ month[0] }} 
+                         data-year={{ current_year }} onclick="get_date(this);"
+                        {% endif %} 
+                        
+                        {% if month[0] == current_month and td == current_day %}
+                        class="current__day"
+                        {% endif %}>          
+                        {{ td | replace(0, "-") | replace("1-", "10") | replace("2-", "20") | replace("3-", "30") }}
+                                          
+                        {%- for list in schedule -%}
+                            {%- if list[4] == month[0] and list[5] == td -%}                    
+                                <span class="table__custom_fio" style=background-color:{{ list[2] }}>{{ list[1] }}</span>                            
+                            {%- endif -%}       
+                        {%- endfor -%}                                                        
+                    </td>
+                {%- endfor -%}            
+            </tr>
+            {%- endfor -%}
+        </tbody>
+    </table> 
+</div>   
 {% endfor %}
 
 {% include "popup_win.html" %}

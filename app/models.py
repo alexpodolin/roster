@@ -5,7 +5,6 @@ Created on Thu Jun 21 09:03:49 2018
 @author: podolin
 """
 from app import db
-from flask_security import UserMixin, RoleMixin
 
 class Users(db.Model):
     __tablename__ = 'users'

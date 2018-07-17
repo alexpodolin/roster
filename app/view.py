@@ -18,7 +18,6 @@ def index() -> 'html':
     months_data = create_month_data(year=current_year) # данные по месяцу
     users = get_duty_users() # список дежурных
     schedule = get_schedule(year=current_year) # расписание дежурных
-    #cur_year = get_current_year() # текущий год для отображения
     current_month = get_current_month_num() # текущий месяц
     current_day = get_current_day() # текущий день
     return render_template('index.html', current_day=current_day, \
@@ -30,12 +29,14 @@ def index() -> 'html':
 @app.route('/next_year', methods=['GET'])
 def next_year() -> 'html':
     '''Корневая страница следующего года'''
-    cur_year = get_current_year()
+
     current_year = get_next_year()
     months_data = create_month_data(year=current_year)
     users = get_duty_users()    
     schedule = get_schedule(year=current_year)
-    return render_template('index.html', cur_year = cur_year, \
+    current_month = get_current_month_num() # текущий месяц
+    return render_template('index.html', \
+                           current_month = current_month, \
                            current_year=current_year, \
                            months_data=months_data, \
                            users=users, schedule=schedule)
@@ -44,11 +45,11 @@ def next_year() -> 'html':
 def prev_year() -> 'html':
     '''Корневая страница предыдущего года'''  
     current_year = get_prev_year()
-    cur_year = get_current_year()
     months_data = create_month_data(year=current_year)
     users = get_duty_users()    
     schedule = get_schedule(year=current_year)
-    return render_template('index.html', cur_year = cur_year, \
+    current_month = get_current_month_num() # текущий месяц
+    return render_template('index.html', current_month = current_month, \
                            current_year=current_year, \
                            months_data=months_data, \
                            users=users, schedule=schedule)
